@@ -5,166 +5,194 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Precios — Brik Systems</title>
 <link rel="stylesheet" href="css/styles.css"/>
+<style>
+  .precios-wrap { padding-bottom: 80px; }
+  .cat-header { padding: 40px 32px 24px; border-bottom: .5px solid var(--ink); display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+  .cat-header h2 { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 52px; line-height: .9; text-transform: uppercase; }
+  .cat-header p { font-size: 14px; color: var(--mute); max-width: 36ch; text-align: right; font-weight: 300; }
+  .plans-grid { display: grid; grid-template-columns: repeat(3,1fr); border-bottom: .5px solid var(--ink); }
+  .plan-card { border-right: .5px solid var(--ink); padding: 36px 32px 40px; display: flex; flex-direction: column; background: var(--paper); }
+  .plan-card:last-child { border-right: none; }
+  .plan-card.best { background: var(--ink); color: var(--paper); }
+  .plan-tag { font-family: 'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); margin-bottom: 16px; }
+  .plan-card.best .plan-tag { color: var(--yellow); }
+  .plan-name { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 28px; text-transform: uppercase; line-height: 1; margin-bottom: 20px; }
+  .plan-price-row { display: flex; align-items: baseline; gap: 6px; padding: 20px 0; border-top: .5px solid var(--ink); border-bottom: .5px solid var(--ink); margin-bottom: 28px; }
+  .plan-card.best .plan-price-row { border-color: rgba(255,255,255,.15); }
+  .plan-currency { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 22px; }
+  .plan-amount { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 72px; line-height: .85; letter-spacing: -.02em; }
+  .plan-period { font-family: 'JetBrains Mono',monospace; font-size: 11px; color: var(--mute); letter-spacing: .1em; text-transform: uppercase; }
+  .plan-card.best .plan-period { color: #666; }
+  .plan-desc { font-size: 14px; line-height: 1.55; color: #3a3a35; margin-bottom: 28px; font-weight: 300; }
+  .plan-card.best .plan-desc { color: #aaa; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1; margin-bottom: 36px; }
+  .plan-features li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.4; font-weight: 300; }
+  .plan-features li::before { content: "→"; font-family: 'JetBrains Mono',monospace; font-size: 11px; color: var(--yellow); margin-top: 2px; flex-shrink: 0; }
+  .plan-card.best .plan-features li { color: #ccc; }
+  .plan-btn { display: block; text-align: center; padding: 16px 24px; font-family: 'Barlow',sans-serif; font-weight: 500; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s; text-decoration: none; }
+  .plan-btn.outline { border: .5px solid var(--ink); color: var(--ink); background: transparent; }
+  .plan-btn.outline:hover { background: var(--ink); color: var(--paper); }
+  .plan-btn.solid { background: var(--yellow); color: var(--ink); }
+  .plan-btn.solid:hover { background: #e0b000; }
+  .extras-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .extra-card { border-right: .5px solid var(--ink); border-bottom: .5px solid var(--ink); padding: 40px 32px; display: flex; flex-direction: column; gap: 20px; }
+  .extra-card:nth-child(2n) { border-right: none; }
+  .extra-card:nth-last-child(-n+2) { border-bottom: none; }
+  .extra-tag { font-family: 'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
+  .extra-name { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 36px; text-transform: uppercase; line-height: .95; }
+  .extra-price-row { display: flex; align-items: baseline; gap: 6px; padding: 16px 0; border-top: .5px solid var(--ink); border-bottom: .5px solid var(--ink); }
+  .extra-amount { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 56px; line-height: .85; }
+  .extra-currency { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 20px; }
+  .extra-period { font-family: 'JetBrains Mono',monospace; font-size: 11px; color: var(--mute); letter-spacing: .1em; text-transform: uppercase; }
+  .extra-features { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .extra-features li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; font-weight: 300; line-height: 1.4; }
+  .extra-features li::before { content: "→"; font-family: 'JetBrains Mono',monospace; font-size: 11px; color: var(--yellow); margin-top: 2px; flex-shrink: 0; }
+  .precios-note { border-top: .5px solid var(--ink); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+  .precios-note span { font-family: 'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; color: var(--mute); text-transform: uppercase; }
+  .precios-note a { font-family: 'Barlow',sans-serif; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); border-bottom: .5px solid var(--ink); padding-bottom: 2px; white-space: nowrap; }
+  .precios-note a:hover { color: var(--yellow); border-color: var(--yellow); }
+  @media(max-width:1100px){
+    .plans-grid,.extras-grid{grid-template-columns:1fr}
+    .plan-card{border-right:none;border-bottom:.5px solid var(--ink)}
+    .extra-card{border-right:none}
+    .cat-header{flex-direction:column;align-items:flex-start}
+    .cat-header p{text-align:left}
+  }
+</style>
 </head>
 <body>
 
-<!-- UTILITY BAR -->
-<div class="util">
-  <div class="container">
-    <div class="left mono mute"><span><span class="dot"></span>&nbsp; ESTUDIO · BOGOTÁ, COLOMBIA</span></div>
-    <div class="right">
-      <span class="mono mute">AGENDA UNA LLAMADA · hola@briksystems.co</span>
-      <div class="lang"><button class="on">ES</button><button>EN</button></div>
-    </div>
-  </div>
-</div>
+<div class="util"><div class="container"><div class="left mono mute"><span><span class="dot"></span>&nbsp; ESTUDIO · BOGOTÁ, COLOMBIA</span></div><div class="right"><span class="mono mute">AGENDA UNA LLAMADA · briksystems.dev@gmail.com</span><div class="lang"><button class="on">ES</button><button>EN</button></div></div></div></div>
 
-<!-- NAV -->
 <header class="nav"><div class="container"><a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 156 156" aria-hidden="true"><polygon points="78,8 142,45 142,119 78,156 14,119 14,45" fill="none" stroke="#1C1C1C" stroke-width="4" stroke-linejoin="round"/><polygon points="78,8 142,45 78,82 14,45" fill="#D8D8D4" stroke="#1C1C1C" stroke-width="2.5" stroke-linejoin="round"/><polygon points="142,45 142,119 78,156 78,82" fill="#888886" stroke="#1C1C1C" stroke-width="2.5" stroke-linejoin="round"/><polygon points="14,45 78,82 78,156 14,119" fill="#AEAEAC" stroke="#1C1C1C" stroke-width="2.5" stroke-linejoin="round"/><polygon points="78,30 122,55 122,107 78,132 34,107 34,55" fill="none" stroke="#F5C400" stroke-width="4" stroke-linejoin="round"/><circle cx="78" cy="82" r="14" fill="#F5C400"/><circle cx="78" cy="82" r="6" fill="#1C1C1C"/></svg><span class="brand-text"><span class="b">BRIK</span><span class="s">S Y S T E M S</span></span></a><nav class="nav-links"><a href="servicios.html"><span class="num">01</span>Servicios</a><a href="portafolio.html"><span class="num">02</span>Portafolio</a><a href="precios.html"><span class="num">03</span>Precios</a><a href="proceso.html"><span class="num">04</span>Proceso</a><a href="estudio.html"><span class="num">05</span>Estudio</a><a href="clientes.html"><span class="num">06</span>Clientes</a><a href="contacto.html"><span class="num">07</span>Contacto</a></nav><div class="nav-cta"><a class="btn" href="contacto.html">Iniciar Proyecto →</a></div></div></header>
 
-<!-- CONTENIDO -->
 <div class="page-content">
-  <div class="container">
-    <div class="section-head">
-      <div class="idx"><span>Sección</span><span class="big">03</span><span>Precios</span></div>
-      <h2 class="title">Inversión<br>transparente</h2>
-      <div class="right">Precios claros desde el primer día. Sin sorpresas ni costos ocultos. Todos los planes incluyen soporte y revisiones.</div>
-    </div>
+<div class="precios-wrap">
+
+  <!-- PÁGINAS WEB -->
+  <div class="cat-header">
+    <h2>Páginas<br>Web</h2>
+    <p>Elige el plan según el tamaño de tu negocio. Todos incluyen diseño a medida, sin plantillas.</p>
   </div>
+  <div class="plans-grid">
 
-  <div class="precios-grid">
-
-    <div class="plan">
-      <span class="plan-tag">[ Plan 01 ]</span>
+    <div class="plan-card">
+      <div class="plan-tag">[ Plan 01 ]</div>
       <div class="plan-name">Landing Page</div>
-      <div class="plan-price">
-        <span class="currency">Desde COP</span>
-        <span class="amount">1.8M</span>
+      <div class="plan-price-row">
+        <span class="plan-currency">USD</span>
+        <span class="plan-amount">300</span>
       </div>
-      <p class="plan-desc">Ideal para presentar tu negocio o lanzar una campaña. Una sola página, optimizada para convertir.</p>
+      <p class="plan-desc">Para el negocio que quiere presentarse en internet de forma rápida y profesional.</p>
       <ul class="plan-features">
-        <li>Diseño personalizado a tu marca</li>
-        <li>Versión móvil incluida</li>
+        <li>Una página completa y optimizada</li>
+        <li>Diseño responsivo (móvil y escritorio)</li>
         <li>Formulario de contacto funcional</li>
-        <li>Integración Google Analytics</li>
-        <li>Entrega en 10–15 días hábiles</li>
+        <li>Integración con WhatsApp</li>
+        <li>Entrega en 10 días hábiles</li>
         <li>2 rondas de revisiones</li>
       </ul>
-      <a class="plan-cta" href="contacto.html">Consultar →</a>
+      <a class="plan-btn outline" href="contacto.html">Empezar →</a>
     </div>
 
-    <div class="plan destacado">
-      <span class="plan-tag">[ Plan 02 · Más popular ]</span>
-      <div class="plan-name">Sitio Corporativo</div>
-      <div class="plan-price">
-        <span class="currency">Desde COP</span>
-        <span class="amount">3.5M</span>
+    <div class="plan-card best">
+      <div class="plan-tag">[ Plan 02 · Más elegido ]</div>
+      <div class="plan-name">Website</div>
+      <div class="plan-price-row">
+        <span class="plan-currency">USD</span>
+        <span class="plan-amount">599</span>
       </div>
-      <p class="plan-desc">Web completa para tu empresa. Todas las secciones que necesitas para generar confianza y conseguir clientes.</p>
+      <p class="plan-desc">Sitio web completo para mostrar todo lo que tu empresa hace y convertir visitantes en clientes.</p>
       <ul class="plan-features">
-        <li>Hasta 6 páginas o secciones</li>
-        <li>Sistema de gestión de contenido</li>
-        <li>Blog o noticias integrado</li>
+        <li>Hasta 6 secciones o páginas</li>
+        <li>Diseño a medida con tu identidad</li>
         <li>SEO básico configurado</li>
-        <li>Versión móvil y tablet incluida</li>
-        <li>Entrega en 20–30 días hábiles</li>
+        <li>Integración de redes sociales</li>
+        <li>Blog o noticias (opcional)</li>
+        <li>Entrega en 20 días hábiles</li>
         <li>3 rondas de revisiones</li>
       </ul>
-      <a class="plan-cta" href="contacto.html">Consultar →</a>
+      <a class="plan-btn solid" href="contacto.html">El más elegido →</a>
     </div>
 
-    <div class="plan">
-      <span class="plan-tag">[ Plan 03 ]</span>
-      <div class="plan-name">Tienda Online</div>
-      <div class="plan-price">
-        <span class="currency">Desde COP</span>
-        <span class="amount">5.5M</span>
+    <div class="plan-card">
+      <div class="plan-tag">[ Plan 03 ]</div>
+      <div class="plan-name">Tienda Online<br>/ Rediseño</div>
+      <div class="plan-price-row">
+        <span class="plan-currency">USD</span>
+        <span class="plan-amount">999</span>
       </div>
-      <p class="plan-desc">E-commerce completo para vender tus productos o servicios en línea, con pasarela de pago integrada.</p>
+      <p class="plan-desc">Para negocios que quieren vender en línea o modernizar un sitio web que ya existe.</p>
       <ul class="plan-features">
-        <li>Catálogo de hasta 50 productos</li>
-        <li>Pasarela de pago (PSE, tarjetas)</li>
-        <li>Gestión de inventario</li>
+        <li>Todo lo del plan Website</li>
+        <li>Tienda hasta 50 productos</li>
+        <li>Pasarela de pago integrada</li>
         <li>Panel de administración</li>
-        <li>Integración WhatsApp</li>
-        <li>Entrega en 30–45 días hábiles</li>
+        <li>SEO avanzado</li>
+        <li>Entrega en 30 días hábiles</li>
         <li>4 rondas de revisiones</li>
       </ul>
-      <a class="plan-cta" href="contacto.html">Consultar →</a>
+      <a class="plan-btn outline" href="contacto.html">Consultar →</a>
     </div>
 
-    <div class="plan">
-      <span class="plan-tag">[ Plan 04 ]</span>
-      <div class="plan-name">Diseño de Marca</div>
-      <div class="plan-price">
-        <span class="currency">Desde COP</span>
-        <span class="amount">2.2M</span>
+  </div>
+
+  <!-- SERVICIOS ADICIONALES -->
+  <div class="cat-header">
+    <h2>Servicios<br>Adicionales</h2>
+    <p>Complementa tu presencia digital con identidad de marca y gestión de redes sociales.</p>
+  </div>
+  <div class="extras-grid">
+
+    <div class="extra-card">
+      <div class="extra-tag">[ Servicio 01 ]</div>
+      <div class="extra-name">Diseño<br>de Marca</div>
+      <div class="extra-price-row">
+        <span class="extra-currency">USD</span>
+        <span class="extra-amount">299</span>
+        <span class="extra-period">único pago</span>
       </div>
-      <p class="plan-desc">Logo profesional, paleta de colores, tipografías y manual de uso básico para que tu marca sea consistente.</p>
-      <ul class="plan-features">
+      <ul class="extra-features">
         <li>3 propuestas de logo</li>
         <li>Paleta de colores corporativa</li>
         <li>Tipografías seleccionadas</li>
-        <li>Manual de marca básico PDF</li>
+        <li>Manual de marca básico en PDF</li>
         <li>Archivos en todos los formatos</li>
-        <li>Entrega en 15–20 días hábiles</li>
+        <li>Entrega en 15 días hábiles</li>
       </ul>
-      <a class="plan-cta" href="contacto.html">Consultar →</a>
+      <a class="plan-btn outline" href="contacto.html" style="margin-top:auto">Consultar →</a>
     </div>
 
-    <div class="plan">
-      <span class="plan-tag">[ Plan 05 ]</span>
-      <div class="plan-name">Redes Sociales</div>
-      <div class="plan-price">
-        <span class="currency">Desde COP</span>
-        <span class="amount">900K</span>
-        <span class="currency">/mes</span>
+    <div class="extra-card">
+      <div class="extra-tag">[ Servicio 02 ]</div>
+      <div class="extra-name">Redes<br>Sociales</div>
+      <div class="extra-price-row">
+        <span class="extra-currency">USD</span>
+        <span class="extra-amount">150</span>
+        <span class="extra-period">por mes</span>
       </div>
-      <p class="plan-desc">Gestión mensual de tus redes sociales. Estrategia, diseño de piezas y publicación programada.</p>
-      <ul class="plan-features">
-        <li>12 publicaciones mensuales</li>
-        <li>Diseño de piezas gráficas</li>
+      <ul class="extra-features">
+        <li>Estrategia de contenido mensual</li>
+        <li>12 publicaciones diseñadas</li>
         <li>Calendario editorial</li>
-        <li>Reporte mensual de resultados</li>
         <li>Instagram + una red adicional</li>
+        <li>Reporte mensual de resultados</li>
+        <li>Gestión de comentarios básica</li>
       </ul>
-      <a class="plan-cta" href="contacto.html">Consultar →</a>
-    </div>
-
-    <div class="plan">
-      <span class="plan-tag">[ Plan 06 ]</span>
-      <div class="plan-name">Mantenimiento</div>
-      <div class="plan-price">
-        <span class="currency">Desde COP</span>
-        <span class="amount">400K</span>
-        <span class="currency">/mes</span>
-      </div>
-      <p class="plan-desc">Tu web siempre actualizada, segura y funcionando. Actualizaciones, copias de seguridad y soporte técnico.</p>
-      <ul class="plan-features">
-        <li>Actualizaciones de seguridad</li>
-        <li>Copias de seguridad semanales</li>
-        <li>Soporte técnico prioritario</li>
-        <li>Cambios de contenido incluidos</li>
-        <li>Monitoreo de disponibilidad</li>
-      </ul>
-      <a class="plan-cta" href="contacto.html">Consultar →</a>
+      <a class="plan-btn outline" href="contacto.html" style="margin-top:auto">Consultar →</a>
     </div>
 
   </div>
 
   <div class="precios-note">
-    <span>* Precios en pesos colombianos (COP). Los valores son referenciales — cada proyecto se cotiza según sus requerimientos específicos.</span>
-    <a href="contacto.html" style="color:var(--ink);font-weight:700;border-bottom:0.5px solid var(--ink);padding-bottom:2px">Solicitar cotización personalizada →</a>
+    <span>* Precios en dólares americanos (USD). Cada proyecto se cotiza según requerimientos específicos.</span>
+    <a href="contacto.html">Solicitar cotización personalizada →</a>
   </div>
+
+</div>
 </div>
 
-<footer class="footer">
-  <div class="container">
-    <span>© 2025 BRIK SYSTEMS · BOGOTÁ · CO</span>
-    <span class="yl">●</span>
-  </div>
-</footer>
-
+<footer class="footer"><div class="container"><span>© 2025 BRIK SYSTEMS · BOGOTÁ · CO</span><span class="yl">●</span></div></footer>
 <script src="js/nav.js"></script>
 </body>
 </html>
