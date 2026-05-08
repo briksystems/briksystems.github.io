@@ -11,8 +11,10 @@
   .cat-header h2 { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 52px; line-height: .9; text-transform: uppercase; }
   .cat-header p { font-size: 14px; color: var(--mute); max-width: 36ch; text-align: right; font-weight: 300; }
   .plans-grid { display: grid; grid-template-columns: repeat(3,1fr); border-bottom: .5px solid var(--ink); }
-  .plan-card { border-right: .5px solid var(--ink); padding: 36px 32px 40px; display: flex; flex-direction: column; background: var(--paper); }
-  .plan-card:last-child { border-right: none; }
+  .plan-card { border-right: .5px solid var(--ink); border-bottom: .5px solid var(--ink); padding: 36px 32px 40px; display: flex; flex-direction: column; background: var(--paper); min-height: 580px; }
+  .plan-card:nth-child(3n) { border-right: none; }
+  .plan-card:nth-child(4) { grid-column: 1; border-bottom: none; }
+  .plan-card:nth-child(5) { grid-column: 2; border-right: none; border-bottom: none; }
   .plan-card.best { background: var(--ink); color: var(--paper); }
   .plan-tag { font-family: 'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); margin-bottom: 16px; }
   .plan-card.best .plan-tag { color: var(--yellow); }
@@ -34,19 +36,9 @@
   .plan-btn.outline:hover { background: var(--ink); color: var(--paper); }
   .plan-btn.solid { background: var(--yellow); color: var(--ink); }
   .plan-btn.solid:hover { background: #e0b000; }
-  .extras-grid { display: grid; grid-template-columns: 1fr 1fr; }
-  .extra-card { border-right: .5px solid var(--ink); border-bottom: .5px solid var(--ink); padding: 40px 32px; display: flex; flex-direction: column; gap: 20px; }
-  .extra-card:nth-child(2n) { border-right: none; }
-  .extra-card:nth-last-child(-n+2) { border-bottom: none; }
-  .extra-tag { font-family: 'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
-  .extra-name { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 36px; text-transform: uppercase; line-height: .95; }
-  .extra-price-row { display: flex; align-items: baseline; gap: 6px; padding: 16px 0; border-top: .5px solid var(--ink); border-bottom: .5px solid var(--ink); }
-  .extra-amount { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 56px; line-height: .85; }
-  .extra-currency { font-family: 'Barlow Condensed',sans-serif; font-weight: 700; font-size: 20px; }
-  .extra-period { font-family: 'JetBrains Mono',monospace; font-size: 11px; color: var(--mute); letter-spacing: .1em; text-transform: uppercase; }
-  .extra-features { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .extra-features li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; font-weight: 300; line-height: 1.4; }
-  .extra-features li::before { content: "→"; font-family: 'JetBrains Mono',monospace; font-size: 11px; color: var(--yellow); margin-top: 2px; flex-shrink: 0; }
+  .extras-grid { display: none; }
+  .extra-card { display: none; }
+  .cat-header-extra { display: none; }
   .precios-note { border-top: .5px solid var(--ink); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
   .precios-note span { font-family: 'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; color: var(--mute); text-transform: uppercase; }
   .precios-note a { font-family: 'Barlow',sans-serif; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); border-bottom: .5px solid var(--ink); padding-bottom: 2px; white-space: nowrap; }
@@ -92,7 +84,7 @@
         <li>Entrega en 10 días hábiles</li>
         <li>2 rondas de revisiones</li>
       </ul>
-      <a class="plan-btn outline" href="contacto.html">Empezar →</a>
+      <a class="plan-btn outline" href="https://wa.me/573116824142?text=Hola%20Brik%20Systems%2C%20quiero%20el%20servicio%20de%20Landing%20Page%20(%24300%20USD).%20Me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20detalles." target="_blank" rel="noopener">Empezar →</a>
     </div>
 
     <div class="plan-card best">
@@ -112,7 +104,7 @@
         <li>Entrega en 20 días hábiles</li>
         <li>3 rondas de revisiones</li>
       </ul>
-      <a class="plan-btn solid" href="contacto.html">El más elegido →</a>
+      <a class="plan-btn solid" href="https://wa.me/573116824142?text=Hola%20Brik%20Systems%2C%20quiero%20el%20servicio%20de%20Website%20(%24599%20USD).%20Me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20detalles." target="_blank" rel="noopener">El más elegido →</a>
     </div>
 
     <div class="plan-card">
@@ -132,57 +124,55 @@
         <li>Entrega en 30 días hábiles</li>
         <li>4 rondas de revisiones</li>
       </ul>
-      <a class="plan-btn outline" href="contacto.html">Consultar →</a>
+      <a class="plan-btn outline" href="https://wa.me/573116824142?text=Hola%20Brik%20Systems%2C%20quiero%20el%20servicio%20de%20Tienda%20Online%20%2F%20Redisenio%20(%24999%20USD).%20Me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20detalles." target="_blank" rel="noopener">Consultar →</a>
     </div>
 
-  </div>
-
-  <!-- SERVICIOS ADICIONALES -->
-  <div class="cat-header">
-    <h2>Servicios<br>Adicionales</h2>
-    <p>Complementa tu presencia digital con identidad de marca y gestión de redes sociales.</p>
-  </div>
-  <div class="extras-grid">
-
-    <div class="extra-card">
-      <div class="extra-tag">[ Servicio 01 ]</div>
-      <div class="extra-name">Diseño<br>de Marca</div>
-      <div class="extra-price-row">
-        <span class="extra-currency">USD</span>
-        <span class="extra-amount">299</span>
-        <span class="extra-period">único pago</span>
+    <div class="plan-card">
+      <div class="plan-tag">[ Servicio 04 ]</div>
+      <div class="plan-name">Diseño<br>de Marca</div>
+      <div class="plan-price-row">
+        <span class="plan-currency">USD</span>
+        <span class="plan-amount">299</span>
+        <span class="plan-period">único pago</span>
       </div>
-      <ul class="extra-features">
+      <p class="plan-desc">Para empresas que necesitan una identidad visual profesional que las diferencie en el mercado.</p>
+      <ul class="plan-features">
         <li>3 propuestas de logo</li>
         <li>Paleta de colores corporativa</li>
         <li>Tipografías seleccionadas</li>
         <li>Manual de marca básico en PDF</li>
         <li>Archivos en todos los formatos</li>
         <li>Entrega en 15 días hábiles</li>
+        <li>2 rondas de revisiones</li>
       </ul>
-      <a class="plan-btn outline" href="contacto.html" style="margin-top:auto">Consultar →</a>
+      <a class="plan-btn outline" href="https://wa.me/573116824142?text=Hola%20Brik%20Systems%2C%20quiero%20el%20servicio%20de%20Dise%C3%B1o%20de%20Marca%20(%24299%20USD).%20Me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20detalles." target="_blank" rel="noopener">Consultar →</a>
     </div>
 
-    <div class="extra-card">
-      <div class="extra-tag">[ Servicio 02 ]</div>
-      <div class="extra-name">Redes<br>Sociales</div>
-      <div class="extra-price-row">
-        <span class="extra-currency">USD</span>
-        <span class="extra-amount">150</span>
-        <span class="extra-period">por mes</span>
+    <div class="plan-card">
+      <div class="plan-tag">[ Servicio 05 ]</div>
+      <div class="plan-name">Redes<br>Sociales</div>
+      <div class="plan-price-row">
+        <span class="plan-currency">USD</span>
+        <span class="plan-amount">150</span>
+        <span class="plan-period">por mes</span>
       </div>
-      <ul class="extra-features">
+      <p class="plan-desc">Gestión mensual de tus redes sociales con estrategia, diseño y publicación programada.</p>
+      <ul class="plan-features">
         <li>Estrategia de contenido mensual</li>
         <li>12 publicaciones diseñadas</li>
         <li>Calendario editorial</li>
         <li>Instagram + una red adicional</li>
         <li>Reporte mensual de resultados</li>
         <li>Gestión de comentarios básica</li>
+        <li>Contrato mensual sin permanencia</li>
       </ul>
-      <a class="plan-btn outline" href="contacto.html" style="margin-top:auto">Consultar →</a>
+      <a class="plan-btn outline" href="https://wa.me/573116824142?text=Hola%20Brik%20Systems%2C%20quiero%20el%20servicio%20de%20Redes%20Sociales%20(%24150%20USD%2Fmes).%20Me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20detalles." target="_blank" rel="noopener">Consultar →</a>
     </div>
 
   </div>
+
+  <!-- SERVICIOS ADICIONALES ocultos - ya integrados arriba -->
+  <div style="display:none"></div>
 
   <div class="precios-note">
     <span>* Precios en dólares americanos (USD). Cada proyecto se cotiza según requerimientos específicos.</span>
