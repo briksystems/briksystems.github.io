@@ -322,3 +322,10 @@ form .btn { width: 100%; }
   .btn, .btn .ico, .stack-card, .project img, .nav-links a::after, .next, .next .ico, .wa-float, .wa-label { transition: none; }
 }
 .contact .panel-foot { margin-bottom: 18px; }
+
+.contact-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-ig { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+.btn-ig:hover { background: rgba(255,255,255,0.18); }
+.btn-ig .ico { width: 1.3em; height: 1.3em; }
+.btn-ig:hover .ico { transform: none; }
+.ig-handle a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
