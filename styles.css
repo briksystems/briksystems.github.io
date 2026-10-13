@@ -329,3 +329,5 @@ form .btn { width: 100%; }
 .btn-ig .ico { width: 1.3em; height: 1.3em; }
 .btn-ig:hover .ico { transform: none; }
 .ig-handle a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+.contact-direct .ig-handle { margin: -6px 0 0; font-weight: 600; }
